@@ -1,4 +1,4 @@
-#/usr/bin/env python3
+# Reads temperature from an Arduino board and stores it into a csv file
 
 import logging
 import serial
@@ -10,11 +10,13 @@ SERIAL_BAUD_RATE = 9600
 SERIAL_TIMEOUT = 4
 
 #File config
-PATH = '/home/pi/Arduino/TempLogger/temp.csv'
+PATH = '/home/pi/Dev/templogger/temp.csv'
 
+#Time between reads
+SLEEP_TIME = 60
 
 #Log config
-LOGGER_NAME = '/home/pi/Arduino/TempLogger/templogger.log'
+LOGGER_NAME = '/home/pi/Dev/templogger/templogger.log'
 
 
 def set_up_logs():
@@ -51,7 +53,7 @@ def main():
                     
             except ValueError:
                 logger.error('ValueError converting ' + str(temp) + ' to float')
-            time.sleep(60)
+            time.sleep(SLEEP_TIME)
         except:
             logger.error ('Exception not cached, exiting...')
             arduino.close()
