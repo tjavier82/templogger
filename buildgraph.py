@@ -22,17 +22,19 @@ df = pd.read_csv('temp.csv', header=None, parse_dates=[1], names=('date','temp')
 				   
 				 
 #fig = go.Figure(data=[trace1], layout=layout)
-#py.plot(fig, filename='temp_csv')
+#py.plot(fig, filename='temp_csv') 
 
 data = [go.Scatter(
 			x=df['date'],
 			y=df['temp'],
 			name = 'Temperature',
+			mode = 'lines',
+			hoverinfo = "x+y",
 			connectgaps = True,
 			line = dict (
-				color = ('rgb(205, 12, 24)'),
-				width = 4,
-				dash = 'dash',
+				#color = ('rgb(205, 12, 24)'),
+				#width = 4,
+				#dash = 'dash',
 				shape = 'spline')
 				
 		)]	
@@ -44,4 +46,4 @@ layout = dict(title = 'Temperature from Arduino sensor',
               )		
 
 fig = dict(data=data, layout=layout)
-py.plot(fig, filename='temp_csv')
+py.plot(fig, filename='temp')
