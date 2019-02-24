@@ -73,14 +73,18 @@ def main():
             humidity_at_coords = str(w.get_humidity())
             logger.debug('Value read: ' + humidity_at_coords + ' at ' + hour)
 
-            a = arduino.readline().decode().strip()
+            a = arduino.readline().strip().decode('ascii')
+            print (a)
             logger.debug ('Value read: ' + str(a) + ' at ' + hour)
+
+            line = hour + ';' + a + ';' + humidity_at_coords + ';' + temp_at_coords + '\n'
+            logger.debug(line)
 
             try:
                 logger.debug ('Opening ' + output_file)
                 f = open(output_file, 'a')
-                logger.debug ('Writing ' + str(a) + ' to ' + output_file)
-                f.write(hour + ';' + str(a) + ';' + humidity_at_coords + ';' + temp_at_coords + '\n')
+                logger.debug ('Writing ' + line ' to ' + output_file)
+                f.write(line)
                 logger.debug ('Closing ' + output_file)
                 f.close()
             except IOError:
