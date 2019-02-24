@@ -64,12 +64,16 @@ def main():
         try:
 
             obs = owm.weather_at_coords(lat, lon)
-            temp_at_coords = str(obs.get_temperature('celsius')['temp'])
-            humidity_at_coords = str(obs.get_humidity())
+            w = obs.get_weather()
             hour = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-            print(hour)
+
+            temp_at_coords = str(w.get_temperature('celsius')['temp'])
+            logger.debug('Value read: ' + temp_at_coords + ' at ' + hour)
+
+            humidity_at_coords = str(w.get_humidity())
+            logger.debug('Value read: ' + humidity_at_coords + ' at ' + hour)
+
             a = arduino.readline()
-            print(a)
             logger.debug ('Value read: ' + str(a) + ' at ' + hour)
 
 
