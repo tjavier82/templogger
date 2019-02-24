@@ -83,7 +83,7 @@ def main():
             try:
                 logger.debug ('Opening ' + output_file)
                 f = open(output_file, 'a')
-                logger.debug ('Writing ' + line ' to ' + output_file)
+                logger.debug ('Writing ' + line + ' to ' + output_file)
                 f.write(line)
                 logger.debug ('Closing ' + output_file)
                 f.close()
