@@ -64,6 +64,8 @@ def main():
         try:
 
             obs = owm.weather_at_coords(lat, lon)
+            temp_at_coords = str(obs.get_temperature('celsius')['temp'])
+            humidity_at_coords = str(obs.get_humidity())
             hour = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
             print(hour)
             a = arduino.readline()
@@ -75,7 +77,7 @@ def main():
                 logger.debug ('Opening ' + output_file)
                 f = open(output_file, 'a')
                 logger.debug ('Writing ' + str(a) + ' to ' + output_file)
-                f.write(hour + ';' + str(a) + ';' + str (obs.get_humidity()) + ';' + str(w.get_temperature('celsius')['temp']) + '\n')
+                f.write(hour + ';' + str(a) + ';' + humidity_at_coords + ';' + temp_at_coords + '\n')
                 logger.debug ('Closing ' + output_file)
                 f.close()
             except IOError:
