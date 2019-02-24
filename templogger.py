@@ -31,7 +31,7 @@ CONFIG_PATH = "config.ini"
 
 def set_up_logs(logfilepath):
     logger = logging.getLogger(logfilepath)
-    logger.setLevel(logging.ERROR)
+    logger.setLevel(logging.DEBUG)
     ch = logging.StreamHandler()
     ch.setLevel(logging.DEBUG)
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -63,12 +63,13 @@ def main():
     while True:
         try:
             a = arduino.readline()
+            obs = owm.weather_at_coords(lat, lon)
             hour = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
             print(hour)
+            a = arduino.readline()
             logger.debug ('Value read: ' + str(a) + ' at ' + hour)
-            obs = owm.weather_at_coords(lat, lon)
 
-            temp = float(a)
+
             try:
                 logger.debug ('Opening ' + output_file)
                 f = open(output_file, 'a')
