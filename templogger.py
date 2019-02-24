@@ -73,7 +73,7 @@ def main():
             humidity_at_coords = str(w.get_humidity())
             logger.debug('Value read: ' + humidity_at_coords + ' at ' + hour)
 
-            a = str(arduino.readline())
+            a = arduino.readline().decode().strip()
             logger.debug ('Value read: ' + str(a) + ' at ' + hour)
 
             try:
