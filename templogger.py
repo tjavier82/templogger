@@ -59,27 +59,27 @@ def main():
     owm = pyowm.OWM(config['OpenWeather']['APIKey'], language='es')
     arduino = serial.Serial(serial_port, serial_baud_rate, timeout=serial_timeout)
 
+
     while True:
         try:
             a = arduino.readline()
             hour = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+            print(hour)
             logger.debug ('Value read: ' + str(a) + ' at ' + hour)
             obs = owm.weather_at_coords(lat, lon)
 
+            temp = float(a)
             try:
-                temp = float(a)
-                try:
-                    logger.debug ('Opening ' + output_file)
-                    f = open(output_file, 'a')
-                    logger.debug ('Writing ' + str(temp) + ' to ' + output_file)
-                    f.write(hour + ';' + str(temp) + ';' + str (obs.get_humidity()) + ';' + str(w.get_temperature('celsius')['temp']) + '\n')
-                    logger.debug ('Closing ' + output_file)
-                    f.close()
-                except IOError:
-                    logger.error('IOError dealing with file ' + output_file)
+                logger.debug ('Opening ' + output_file)
+                f = open(output_file, 'a')
+                logger.debug ('Writing ' + str(temp) + ' to ' + output_file)
+                f.write(hour + ';' + str(temp) + ';' + str (obs.get_humidity()) + ';' + str(w.get_temperature('celsius')['temp']) + '\n')
+                logger.debug ('Closing ' + output_file)
+                f.close()
+            except IOError:
+                logger.error('IOError dealing with file ' + output_file)
                     
-            except ValueError:
-                logger.error('ValueError converting ' + str(temp) + ' to float')
+
             time.sleep(sleep_time)
         except:
             logger.error ('Exception not cached, exiting...')
