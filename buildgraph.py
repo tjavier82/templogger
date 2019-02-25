@@ -15,12 +15,16 @@ df = pd.read_csv(
 
 trace1 = go.Scatter(
 	x  = df['date'],
-	y = df['External Temperature']
+	y = df['External Temperature'],
+	mode = 'lines',
+	name = 'External Temperature'
 )
 
 trace2 = go.Scatter(
 	x  = df['date'],
-	y = df['Internal Temperature']
+	y = df['Internal Temperature'],
+	mode='lines',
+	name='External Temperature'
 )
 
 
