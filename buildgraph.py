@@ -13,11 +13,16 @@ df = pd.read_csv(
 	 names=('date','Internal Humidity', 'Internal Temperature','External Humidity', 'External Temperature'),
 	 delimiter=";")
 
-trace = go.Scatter(
+trace1 = go.Scatter(
 	x  = df['date'],
-	#y1 = df['Internal Temperature'],
 	y = df['External Temperature']
 )
 
-data = [trace]
+trace2 = go.Scatter(
+	x  = df['date'],
+	y = df['Internal Temperature']
+)
+
+
+data = [trace1, trace2]
 py.plot(data, filename='Temp evolution')
