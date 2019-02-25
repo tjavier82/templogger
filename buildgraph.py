@@ -24,7 +24,7 @@ trace2 = go.Scatter(
 	x  = df['date'],
 	y = df['Internal Temperature'],
 	mode='lines',
-	name='External Temperature'
+	name='Internal Temperature'
 )
 
 
