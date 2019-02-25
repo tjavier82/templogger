@@ -20,4 +20,4 @@ trace = go.Scatter(
 )
 
 data = [trace]
-py.iplot(data, filename='Temp evolution')
+py.plot(data, filename='Temp evolution')
