@@ -58,9 +58,9 @@ def main():
 
     owm = pyowm.OWM(config['OpenWeather']['APIKey'], language='es')
     arduino = serial.Serial(serial_port, serial_baud_rate, timeout=serial_timeout)
+    go_on = True
 
-
-    while True:
+    while go_on:
         try:
 
             obs = owm.weather_at_coords(lat, lon)
@@ -74,28 +74,27 @@ def main():
             logger.debug('Value read: ' + humidity_at_coords + ' at ' + hour)
 
             a = arduino.readline().strip().decode('ascii')
-            print (a)
-            logger.debug ('Value read: ' + str(a) + ' at ' + hour)
+            logger.debug('Value read: ' + str(a) + ' at ' + hour)
 
             line = hour + ';' + a + ';' + humidity_at_coords + ';' + temp_at_coords + '\n'
             logger.debug(line)
 
             try:
-                logger.debug ('Opening ' + output_file)
+                logger.debug('Opening ' + output_file)
                 f = open(output_file, 'a')
-                logger.debug ('Writing ' + line + ' to ' + output_file)
+                logger.debug('Writing ' + line + ' to ' + output_file)
                 f.write(line)
-                logger.debug ('Closing ' + output_file)
+                logger.debug('Closing ' + output_file)
                 f.close()
             except IOError:
                 logger.error('IOError dealing with file ' + output_file)
-                    
 
             time.sleep(sleep_time)
         except:
-            logger.error ('Exception not cached, exiting...')
+            #logger.error('Exception not cached, exiting...')
+            logger.exception('Exception not cached, exiting...')
             arduino.close()
-            exit()
+            go_on = False
               
 if __name__ == "__main__":
     main()
