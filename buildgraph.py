@@ -14,19 +14,59 @@ df = pd.read_csv(
 	 delimiter=";")
 
 trace1 = go.Scatter(
-	x  = df.Date,
-	y = df['External Temperature'],
+	x=df['date'],
+	y=df['External Temperature'],
 	mode = 'lines',
 	name = 'External Temperature'
 )
 
 trace2 = go.Scatter(
-	x  = df.Date,
+	x  = df['date'],
 	y = df['Internal Temperature'],
 	mode='lines',
 	name='Internal Temperature'
 )
 
+trace3 = go.Scatter(
+	x=df['date'],
+	y=df['External Humidity'],
+	mode = 'lines',
+	name = 'External Humidity',
+	yaxis='y2'
 
-data = [trace1, trace2]
-py.plot(data, filename='Temp evolution')
+)
+
+trace4 = go.Scatter(
+	x  = df['date'],
+	y = df['Internal Humidity'],
+	mode='lines',
+	name='Internal Humidity',
+	yaxis='y2'
+)
+
+
+
+data = [trace1, trace2, trace3, trace4]
+
+layout = go.Layout(
+    title='Temperature and Humidity inside and outside',
+    yaxis=dict(
+        title='Temperature'
+    ),
+    yaxis2=dict(
+        title='Humidity',
+        titlefont=dict(
+            color='rgb(148, 103, 189)'
+        ),
+        tickfont=dict(
+            color='rgb(148, 103, 189)'
+        ),
+        overlaying='y',
+        side='right'
+    )
+)
+
+fig = go.Figure(data=data, layout=layout)
+py.plot(fig, filename='Temperatura and Humidity')
+
+
