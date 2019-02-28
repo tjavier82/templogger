@@ -27,8 +27,6 @@ import pyowm
 
 CONFIG_PATH = "config.ini"
 
-
-
 def set_up_logs(logfilepath):
     logger = logging.getLogger(logfilepath)
     logger.setLevel(logging.DEBUG)
@@ -38,6 +36,7 @@ def set_up_logs(logfilepath):
     ch.setFormatter(formatter)
     logger.addHandler(ch)
     return logger
+
 
 def main():
 
@@ -91,10 +90,11 @@ def main():
 
             time.sleep(sleep_time)
         except:
-            #logger.error('Exception not cached, exiting...')
+            # logger.error('Exception not cached, exiting...')
             logger.exception('Exception not cached, exiting...')
             arduino.close()
             go_on = False
+
               
 if __name__ == "__main__":
     main()
