@@ -17,7 +17,8 @@ trace1 = go.Scatter(
 	x=df['date'],
 	y=df['External Temperature'],
 	mode = 'lines',
-	name = 'External Temperature'
+	name = 'External Temperature',
+	line = dict(shape='spline', simplify=True)
 )
 
 trace2 = go.Scatter(
@@ -43,7 +44,6 @@ trace4 = go.Scatter(
 	name='Internal Humidity',
 	yaxis='y2'
 )
-
 
 
 data = [trace1, trace2, trace3, trace4]
