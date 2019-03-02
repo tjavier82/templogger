@@ -4,7 +4,7 @@ import os
 from flask import Flask
 
 
-from webapp import routes
+#from webapp import routes
 
 def create_webapp(test_config=None):
     # create and configure the app
