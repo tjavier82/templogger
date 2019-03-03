@@ -45,9 +45,11 @@ class BuildGrapgh:
         return
 
     def temperature(self):
+        self.logger.debug('Starting temperature graphic')
         trace1 = go.Scatter (
             x=self.data['date'],
             y=self.data['External Temperature'],
+            hoverinfo = 'x+y',
             mode='lines',
             name='External Temperature',
             line=dict(shape='spline', simplify=True)
@@ -55,6 +57,7 @@ class BuildGrapgh:
         trace2 = go.Scatter(
             x=self.data['date'],
             y=self.data['Internal Temperature'],
+            hoverinfo='x+y',
             mode='lines',
             name='Internal Temperature',
             line=dict(shape='spline', simplify=True)
@@ -62,7 +65,7 @@ class BuildGrapgh:
 
         data = [trace1, trace2]
         layout = go.Layout(
-            title='Temperature and Humidity inside and outside',
+            title='Temperature inside and outside',
             yaxis=dict(
                 title='Temperature'
              )
@@ -71,8 +74,40 @@ class BuildGrapgh:
         py.plot(fig, filename='Temperature')
         return
 
+    def humidity(self):
+        self.logger.debug('Starting humidity graphic')
+        trace1 = go.Scatter (
+            x=self.data['date'],
+            y=self.data['External Humidity'],
+            hoverinfo = 'x+y',
+            mode='lines',
+            name='External Humidity',
+            line=dict(shape='spline', simplify=True)
+        )
+        trace2 = go.Scatter(
+            x=self.data['date'],
+            y=self.data['Internal Humidity'],
+            hoverinfo='x+y',
+            mode='lines',
+            name='Internal Humidity',
+            line=dict(shape='spline', simplify=True)
+        )
+
+        data = [trace1, trace2]
+        layout = go.Layout(
+            title='Humidity inside and outside',
+            yaxis=dict(
+                title='Humidity'
+             )
+        )
+        fig = go.Figure(data=data, layout=layout)
+        py.plot(fig, filename='Humidity')
+        return
+
+
 
     def all_together(self):
+        self.logger.debug('Starting all_together graphic')
         trace1 = go.Scatter(
             x=self.data['date'],
             y=self.data['External Temperature'],
@@ -133,6 +168,7 @@ class BuildGrapgh:
 def main():
     bf = BuildGrapgh()
     bf.temperature()
+    bf.humidity()
     bf.all_together()
     return
 
