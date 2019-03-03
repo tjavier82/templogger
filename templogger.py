@@ -89,6 +89,9 @@ def main():
                 logger.error('IOError dealing with file ' + output_file)
 
             time.sleep(sleep_time)
+        except pyowm.exceptions.api_call_error.APICallTimeoutError:
+            logger.exception('OWM API Timeout')
+
         except:
             # logger.error('Exception not cached, exiting...')
             logger.exception('Exception not cached, exiting...')
